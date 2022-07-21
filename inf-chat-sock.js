@@ -3,11 +3,16 @@ const { Server } = require("socket.io");
 const io = new Server({
         cors: {
                 origin: "http://localhost:5678"
+                //origin:"http://107.189.13.101:5678"
         }
 });
 
 messages = []
-function saveMessages() {
+function saveMessages(message) {
+  messages = messages.concat(message)
+  if (message == "/del-allLOLOLOL") {
+    messages = []
+  }
   fs.writeFile('./messages.infc', JSON.stringify(messages), ()=>{})
 }
 try {
@@ -18,13 +23,12 @@ try {
 }
 
 io.on("connection", socket => {
-  //console.log("client connected")
+  console.log("client connected")
 	
 	socket.emit("msgs", messages)
 	
   socket.on("msg", message => {
-		messages = messages.concat(message)
-		saveMessages()
+		saveMessages(message)
 		io.emit("msgs", messages);
   });
 });
