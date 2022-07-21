@@ -2,7 +2,8 @@ const fs = require("fs");
 const { Server } = require("socket.io");
 const io = new Server({
         cors: {
-                origin: "http://localhost:5678"
+          origin: "*"
+                //origin: "http://localhost:5678"
                 //origin:"http://107.189.13.101:5678"
         }
 });
