@@ -2,7 +2,7 @@ const fs = require("fs");
 const { Server } = require("socket.io");
 const io = new Server({
         cors: {
-                origin: "http://127.0.0.1:5173"
+                origin: "http://localhost:5678"
         }
 });
 
@@ -18,16 +18,16 @@ try {
 }
 
 io.on("connection", socket => {
-        console.log("client connected")
+  //console.log("client connected")
 	
 	socket.emit("msgs", messages)
 	
-        socket.on("msg", message => {
+  socket.on("msg", message => {
 		messages = messages.concat(message)
 		saveMessages()
 		io.emit("msgs", messages);
-        });
+  });
 });
 
-io.listen(5678);
+io.listen(8765);
 
