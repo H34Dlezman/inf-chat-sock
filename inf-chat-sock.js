@@ -2,7 +2,7 @@ const fs = require("fs");
 const { Server } = require("socket.io");
 const io = new Server({
         cors: {
-                origin: "http://127.0.0.1:5173"
+                origin: "http://localhost:5678"
         }
 });
 
@@ -29,5 +29,5 @@ io.on("connection", socket => {
         });
 });
 
-io.listen(5678);
+io.listen(8765);
 
