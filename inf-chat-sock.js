@@ -9,11 +9,18 @@ const io = new Server({
 });
 
 messages = []
-function saveMessages(message) {
-  messages = messages.concat(message)
-  if (message == "/del-allLOLOLOL") {
+function saveMessages(msg) {
+  if (msg == "/del-allLOLOLOL") {
     messages = []
   }
+  var message = msg
+  var author = ""
+  var authorInd = -1
+  if ( (authorInd=message.indexOf("@aka")) >= 0 ) {
+    author = message.slice(Math.min(message.length-1, authorInd+4))
+    message = message.slice(0, authorInd)
+  }
+  messages = messages.concat({message, author})
   fs.writeFile('./messages.infc', JSON.stringify(messages), ()=>{})
 }
 try {
