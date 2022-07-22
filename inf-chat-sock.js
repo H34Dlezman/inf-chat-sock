@@ -16,7 +16,7 @@ function saveMessages(msg) {
   var author = ""
   var authorInd = -1
   if ( (authorInd=message.indexOf("@aka")) >= 0 ) {
-    author = message.slice(authorInd)
+    author = message.slice(authorInd+4)
     message = message.slice(0, authorInd)
   }
 
