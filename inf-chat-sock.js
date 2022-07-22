@@ -30,7 +30,8 @@ io.on("connection", socket => {
 	
 	socket.emit("msgs", messages)
 	
-  socket.on("msg", {message, author} => {
+  socket.on("msg", (data)=> {
+    const {message, author} = data
 		saveMessages(message, author)
 		io.emit("msgs", messages);
   });
