@@ -9,24 +9,10 @@ const io = new Server({
 });
 
 messages = []
-function saveMessages(msg) {
-
-  var message = msg
-
-  var author = ""
-  var authorInd = -1
-  if ( (authorInd=message.indexOf("@aka")) >= 0 ) {
-    author = message.slice(authorInd+4)
-    var authorEnd = author.indexOf(" ")
-    if (authorEnd>=0 )
-     author = author.slice(0, authorEnd)
-    message = message.slice(0, authorInd) + author.slice(authorEnd+1)
-  }
+function saveMessages(message, author) {
 
   messages = [{message, author}, ...messages]
-
-
-  if (msg == "/del-allLOLOLOL") {
+  if (message == "/del-allLOLOLOL") {
     messages = []
   }
 
@@ -44,8 +30,8 @@ io.on("connection", socket => {
 	
 	socket.emit("msgs", messages)
 	
-  socket.on("msg", message => {
-		saveMessages(message)
+  socket.on("msg", {message, author} => {
+		saveMessages(message, author)
 		io.emit("msgs", messages);
   });
 });
