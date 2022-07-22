@@ -20,13 +20,13 @@ function saveMessages(msg) {
     message = message.slice(0, authorInd)
   }
 
-  messages = messages.concat({message, author})
+  messages = [{message, author}, ...messages]
 
 
   if (msg == "/del-allLOLOLOL") {
     messages = []
   }
-  
+
   fs.writeFile('./messages.infc', JSON.stringify(messages), ()=>{})
 }
 try {
